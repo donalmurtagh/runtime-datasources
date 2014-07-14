@@ -47,8 +47,8 @@ The same service that is used to add datasources can also remove them:
 runtimeDataSourceService.removeDataSource('myDataSource')
 ````
 
-The argument should be the name of the datasource's Spring bean. The method returns true if the datasource was successfully
-removed, or false if a datasource Spring bean with this name could not be found.
+The argument should be the name of the datasource's Spring bean. The method returns `true` if the datasource was successfully
+removed, or `false` if a datasource Spring bean with this name could not be found.
 
 ## Using a Runtime DataSource
 
