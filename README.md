@@ -132,7 +132,7 @@ class MyService {
     private executeSqlAgainstRuntimeDataSource(String beanName) {
         
         Integer rowCount = runtimeDataSourceService.doWithSql(beanName) { Sql sql ->
-            def queryResult = sql.firstRow('select count(*) from vault')	  
+            def queryResult = sql.firstRow('select count(*) from my_table')	  
             queryResult[0]
         }
     }
