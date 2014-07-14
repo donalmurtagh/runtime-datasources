@@ -41,8 +41,10 @@ at compile-time in <tt>DataSource.groovy</tt>
 
 ## Remove a DataSource
 
+The same service that is used to add datasources can also remove them:
+
 ````groovy 
-assertTrue runtimeDataSourceService.removeDataSource('myDataSource')
+runtimeDataSourceService.removeDataSource('myDataSource')
 ````
 
 The argument should be the name of the datasource's Spring bean. The method returns true if the datasource was successfully
