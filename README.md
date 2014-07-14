@@ -13,31 +13,9 @@ class and datasource](http://grails.org/doc/latest/guide/conf.html#multipleDatas
 Dependency-inject the `runtimeDataSourceService` service provided by the plugin and call it like so:
 
 ````groovy
-DataSource runtimeDataSource = runtimeDataSourceService.addDataSource('myDataSource', {
-    driverClassName = 'com.mysql.jdbc.Driver'
-    url = 'jdbc:mysql://localhost/example'
-    username = 'root'
-    password = 'password'
-})
-````
+import javax.sql.DataSource
+import org.apache.tomcat.jdbc.pool.DataSource as TomcatDataSource
 
-If successful, the method returns the created datasource. 
-
-### Mandatory Arguments
-
-* The name of the Spring bean that will be registered for this datasource. If a Spring bean with this name already
-exists, an exception will be thrown
-* A closure that defines the properties of this datasource. At a minimum, the properties shown in the example above
-should be provided. This closure supports the same properties as the closure that is used to set datasource properties 
-at compile-time in <tt>DataSource.groovy</tt>
-
-### Optional Arguments
-
-* A third optional argument may be provided that defines the implementation class of the Spring bean. if omitted, 
-[org.apache.tomcat.jdbc.pool.DataSource](https://tomcat.apache.org/tomcat-7.0-doc/api/org/apache/tomcat/jdbc/pool/DataSource.html) 
-will be used by default. An example that overrides this default is shown below
-
-````groovy
 def dataSourceProperties = {
     driverClassName = 'com.mysql.jdbc.Driver'
     url = 'jdbc:mysql://localhost/example'
@@ -45,8 +23,21 @@ def dataSourceProperties = {
     password = 'password'
 }
 
-DataSource runtimeDataSource = runtimeDataSourceService.addDataSource('myDataSource', dataSourceProperties, MyDataSourceImpl)
+DataSource runtimeDataSource = runtimeDataSourceService.addDataSource(
+        'myDataSource', dataSourceProperties, TomcatDataSource)
 ````
+
+If successful, the method returns the created datasource. 
+
+### Arguments
+
+1. The name of the Spring bean that will be registered for this datasource. If a Spring bean with this name already
+exists, an exception will be thrown
+2. A closure that defines the properties of this datasource. At a minimum, the properties shown in the example above
+should be provided. This closure supports the same properties as the closure that is used to set datasource properties 
+at compile-time in <tt>DataSource.groovy</tt>
+3. The final argument defines the implementation class of the Spring bean. This class must implement the 
+`javax.sql.DataSource` interface. 
 
 ## Remove a DataSource
 

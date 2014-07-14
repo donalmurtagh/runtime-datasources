@@ -8,7 +8,6 @@ import org.springframework.context.ApplicationContextAware
 import org.springframework.context.support.GenericApplicationContext
 
 import javax.sql.DataSource
-import org.apache.tomcat.jdbc.pool.DataSource as TomcatDataSource
 
 /**
  * A service that allows an application to add/remove JDBC datasources at runtime
@@ -45,8 +44,7 @@ class RuntimeDataSourceService implements ApplicationContextAware {
      *
      * @return the datasource
      */
-    DataSource addDataSource(String beanName, Closure dataSourceProperties,
-                                  Class<? extends DataSource> dataSourceBeanImpl = TomcatDataSource) {
+    DataSource addDataSource(String beanName, Closure dataSourceProperties, Class<? extends DataSource> dataSourceBeanImpl) {
 
         if (applicationContext.containsBean(beanName)) {
             throw new BeanCreationException(beanName, "A Spring bean named '$beanName' already exists")
