@@ -27,25 +27,25 @@ class RuntimeDataSourceService implements ApplicationContextAware {
      * be provided
      *
      * <pre>
-     * {@code
+     * <code>
      * {
      *     driverClassName = 'com.mysql.jdbc.Driver'
      *     url = 'jdbc:mysql://localhost/example'
      *     username = 'root'
      *     password = 'password'
      * }
-     * }
+     * </code>
      * </pre>
      *
      * This closure supports the same properties as the closure that is used to set datasource properties
-     * statically in <tt>DataSource.groovy</tt>
+     * at compile-time in <tt>DataSource.groovy</tt>
      *
      * @param dataSourceBeanImpl Implementation class of the Spring bean. If omitted
      * <tt>org.apache.tomcat.jdbc.pool.DataSource</tt> will be used by default
      *
      * @return the datasource
      */
-    DataSource registerDataSource(String beanName, Closure dataSourceProperties,
+    DataSource addDataSource(String beanName, Closure dataSourceProperties,
                                   Class<? extends DataSource> dataSourceBeanImpl = TomcatDataSource) {
 
         if (applicationContext.containsBean(beanName)) {
@@ -69,7 +69,7 @@ class RuntimeDataSourceService implements ApplicationContextAware {
      * when the datasource was registered
      * @return a boolean indicating if removal of the datasource succeeded or not
      */
-    boolean unregisterDataSource(String beanName) {
+    boolean removeDataSource(String beanName) {
 
         if (applicationContext.containsBean(beanName)) {
 
