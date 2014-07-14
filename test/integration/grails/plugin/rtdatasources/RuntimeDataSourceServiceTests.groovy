@@ -34,7 +34,7 @@ class RuntimeDataSourceServiceTests extends GroovyTestCase implements Applicatio
         }
     }
 
-    void testDataSourceUnregistration() {
+    void testDataSourceRemoval() {
 
         String beanName = 'yetAnotherDataSource'
         registerDefaultTomcatDataSource(beanName)
