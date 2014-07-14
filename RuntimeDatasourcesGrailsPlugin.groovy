@@ -20,23 +20,21 @@ class RuntimeDatasourcesGrailsPlugin {
     ]
 
     def title = "Runtime Datasources Plugin" // Headline display name of the plugin
-    def author = "Donal Murtagh"
+    def author = "Dónal Murtagh"
     def authorEmail = "domurtag@yahoo.co.uk "
-    def description = '''\
-Allows an application to add or remove JDBC datasources at runtime
-'''
+    def description = 'Allows an application to add or remove JDBC datasources at runtime'
 
     // URL to the plugin's documentation
-    def documentation = "http://grails.org/plugin/runtime-datasources"
+    def documentation = "https://github.com/domurtag/runtime-datasources"
 
     // License: one of 'APACHE', 'GPL2', 'GPL3'
     def license = "APACHE"
 
     // Location of the plugin's issue tracker.
-    def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPMYPLUGIN" ]
+    def issueManagement = [system: "GitHub", url: "https://github.com/domurtag/runtime-datasources/issues"]
 
     // Online location of the plugin's browseable source code.
-    def scm = [ url: "http://svn.codehaus.org/grails-plugins/" ]
+    def scm = [ url: "https://github.com/domurtag/runtime-datasources" ]
 
     def doWithWebDescriptor = { xml ->
     }

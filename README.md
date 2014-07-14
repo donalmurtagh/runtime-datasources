@@ -148,3 +148,8 @@ class MyService {
 
 Notice that the caller is not responsible for closing the `Sql` instance that is passed to the closure. The value returned
 by the closure is also the return value of `doWithSql`.
+
+## Credits
+
+The core of this plugin is based on [this stackoverflow answer](http://stackoverflow.com/a/20634968/2648) posted by 
+[Tim Yates](https://github.com/timyates).
