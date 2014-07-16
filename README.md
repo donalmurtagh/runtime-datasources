@@ -33,7 +33,7 @@ exists, an exception will be thrown
 2. A closure that defines the properties of this datasource. At a minimum, the properties shown in the example above
 should be provided. This closure supports the same properties as the closure that is used to set datasource properties 
 at compile-time in <tt>DataSource.groovy</tt>
-3. The final argument defines the implementation class of the Spring bean. This class must implement the 
+3. The third argument defines the implementation class of the Spring bean. This class must implement the 
 `javax.sql.DataSource` interface. 
 
 ## Remove a DataSource
