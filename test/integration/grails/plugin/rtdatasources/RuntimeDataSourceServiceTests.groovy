@@ -10,6 +10,10 @@ class RuntimeDataSourceServiceTests extends GroovyTestCase implements Applicatio
     RuntimeDataSourceService runtimeDataSourceService
     ApplicationContext applicationContext
 
+    private static final URL = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+    private final DRIVER = "org.h2.Driver"
+    private final USERNAME = "sa"
+    private final PASSWORD = ""
 
     void testDataSourceRegistration() {
 
@@ -18,10 +22,10 @@ class RuntimeDataSourceServiceTests extends GroovyTestCase implements Applicatio
 
         // check the few properties
         def dataSourceProps = dataSource.poolProperties
-        assertEquals 'root', dataSourceProps.username
-        assertEquals 'password', dataSourceProps.password
-        assertEquals 'jdbc:mysql://localhost/example', dataSourceProps.url
-        assertEquals 'com.mysql.jdbc.Driver', dataSourceProps.driverClassName
+        assertEquals USERNAME, dataSourceProps.username
+        assertEquals PASSWORD, dataSourceProps.password
+        assertEquals URL, dataSourceProps.url
+        assertEquals DRIVER, dataSourceProps.driverClassName
     }
 
     void testDuplicateDataSourceRegistration() {
@@ -45,10 +49,10 @@ class RuntimeDataSourceServiceTests extends GroovyTestCase implements Applicatio
     private TomcatDataSource registerDefaultTomcatDataSource(String beanName) {
 
         runtimeDataSourceService.addDataSource(beanName, TomcatDataSource) {
-            driverClassName = 'com.mysql.jdbc.Driver'
-            url = 'jdbc:mysql://localhost/example'
-            username = 'root'
-            password = 'password'
+            driverClassName = DRIVER
+            url = URL
+            username = USERNAME
+            password = PASSWORD
         }
     }
 }
