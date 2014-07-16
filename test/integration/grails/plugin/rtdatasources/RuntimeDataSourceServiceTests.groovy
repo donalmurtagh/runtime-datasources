@@ -11,21 +11,25 @@ class RuntimeDataSourceServiceTests extends GroovyTestCase implements Applicatio
     ApplicationContext applicationContext
 
     private static final URL = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
-    private final DRIVER = "org.h2.Driver"
-    private final USERNAME = "sa"
-    private final PASSWORD = ""
+    private static final DRIVER = "org.h2.Driver"
+    private static final USERNAME = "sa"
+    private static final PASSWORD = ""
 
-    void testDataSourceRegistration() {
+    void testDataSourceAdditionAndRemoval() {
 
         String beanName = 'newDataSource'
         TomcatDataSource dataSource = registerDefaultTomcatDataSource(beanName)
 
-        // check the few properties
+        // check a few properties
         def dataSourceProps = dataSource.poolProperties
         assertEquals USERNAME, dataSourceProps.username
         assertEquals PASSWORD, dataSourceProps.password
         assertEquals URL, dataSourceProps.url
         assertEquals DRIVER, dataSourceProps.driverClassName
+
+        // now remove it twice, the second attempt should return false
+        assertTrue runtimeDataSourceService.removeDataSource(beanName)
+        assertFalse runtimeDataSourceService.removeDataSource(beanName)
     }
 
     void testDuplicateDataSourceRegistration() {
@@ -36,14 +40,6 @@ class RuntimeDataSourceServiceTests extends GroovyTestCase implements Applicatio
         shouldFail(BeanCreationException) {
             registerDefaultTomcatDataSource(beanName)
         }
-    }
-
-    void testDataSourceRemoval() {
-
-        String beanName = 'yetAnotherDataSource'
-        registerDefaultTomcatDataSource(beanName)
-        assertTrue runtimeDataSourceService.removeDataSource(beanName)
-        assertFalse runtimeDataSourceService.removeDataSource(beanName)
     }
 
     private TomcatDataSource registerDefaultTomcatDataSource(String beanName) {
