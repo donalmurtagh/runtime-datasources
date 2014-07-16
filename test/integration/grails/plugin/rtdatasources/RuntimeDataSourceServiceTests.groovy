@@ -1,5 +1,7 @@
 package grails.plugin.rtdatasources
 
+import groovy.sql.GroovyRowResult
+import groovy.sql.Sql
 import org.apache.tomcat.jdbc.pool.DataSource as TomcatDataSource
 import org.springframework.beans.factory.BeanCreationException
 import org.springframework.context.ApplicationContext
@@ -39,6 +41,28 @@ class RuntimeDataSourceServiceTests extends GroovyTestCase implements Applicatio
 
         shouldFail(BeanCreationException) {
             registerDefaultTomcatDataSource(beanName)
+        }
+    }
+
+    void testSqlExecution() {
+
+        String beanName = 'newDataSource'
+        registerDefaultTomcatDataSource(beanName)
+        Sql sql = runtimeDataSourceService.getSql(beanName)
+
+        try {
+            def createTableSql = 'create table test(id int primary key, name varchar(255))'
+            sql.execute(createTableSql)
+
+            GroovyRowResult queryResult = runtimeDataSourceService.doWithSql(beanName) { Sql queryExecutor ->
+                queryExecutor.firstRow('select count(*) from test')
+            }
+
+            assertEquals 0, queryResult[0]
+
+        } finally {
+            sql.close()
+            runtimeDataSourceService.removeDataSource(beanName)
         }
     }
 
