@@ -86,6 +86,7 @@ class RuntimeDataSourceService implements ApplicationContextAware {
     /**
      * Provides a Sql object that may be used to execute SQL statements against a datasource. The caller is
      * responsible for calling <tt>close()</tt> on this object when it is no longer needed.
+     *
      * @param beanName the name of the datasource's Spring bean, this should match the name that was used
      * when the datasource was registered
      * @return
@@ -96,7 +97,8 @@ class RuntimeDataSourceService implements ApplicationContextAware {
     }
 
     /**
-     * Provides a Sql object that may be used to execute SQL statements against a datasource
+     * Provides a Sql object that may be used to execute SQL statements against a datasource.
+     *
      * @param beanName the name of the datasource's Spring bean, this should match the name that was used
      * when the datasource was registered
      * @param sqlWork the <tt>Sql</tt> instance is passed as the one and only argument to this closure
@@ -113,5 +115,3 @@ class RuntimeDataSourceService implements ApplicationContextAware {
         }
     }
 }
-
-
