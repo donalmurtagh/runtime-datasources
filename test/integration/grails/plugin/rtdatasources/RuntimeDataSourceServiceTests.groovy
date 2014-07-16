@@ -12,7 +12,7 @@ class RuntimeDataSourceServiceTests extends GroovyTestCase implements Applicatio
     RuntimeDataSourceService runtimeDataSourceService
     ApplicationContext applicationContext
 
-    private static final URL = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+    private static final URL = "jdbc:h2:mem:runtimeDb"
     private static final DRIVER = "org.h2.Driver"
     private static final USERNAME = "sa"
     private static final PASSWORD = ""
