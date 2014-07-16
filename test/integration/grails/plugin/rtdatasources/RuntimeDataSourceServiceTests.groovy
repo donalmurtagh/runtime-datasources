@@ -44,12 +44,11 @@ class RuntimeDataSourceServiceTests extends GroovyTestCase implements Applicatio
 
     private TomcatDataSource registerDefaultTomcatDataSource(String beanName) {
 
-        def dataSourceProperties = {
+        runtimeDataSourceService.addDataSource(beanName, TomcatDataSource) {
             driverClassName = 'com.mysql.jdbc.Driver'
             url = 'jdbc:mysql://localhost/example'
             username = 'root'
             password = 'password'
         }
-        runtimeDataSourceService.addDataSource(beanName, dataSourceProperties, TomcatDataSource)
     }
 }

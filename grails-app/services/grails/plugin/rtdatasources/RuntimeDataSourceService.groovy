@@ -22,6 +22,8 @@ class RuntimeDataSourceService implements ApplicationContextAware {
      * Add a datasource by registering a bean with the Spring application context
      *
      * @param beanName the name of the Spring bean that will be registered for this datasource
+     * @param dataSourceBeanImpl Implementation class of the Spring bean. If omitted
+     * <tt>org.apache.tomcat.jdbc.pool.DataSource</tt> will be used by default
      * @param dataSourceProperties defines the properties of this datasource. At a minimum, the following should
      * be provided
      *
@@ -39,12 +41,9 @@ class RuntimeDataSourceService implements ApplicationContextAware {
      * This closure supports the same properties as the closure that is used to set datasource properties
      * at compile-time in <tt>DataSource.groovy</tt>
      *
-     * @param dataSourceBeanImpl Implementation class of the Spring bean. If omitted
-     * <tt>org.apache.tomcat.jdbc.pool.DataSource</tt> will be used by default
-     *
      * @return the datasource
      */
-    DataSource addDataSource(String beanName, Closure dataSourceProperties, Class<? extends DataSource> dataSourceBeanImpl) {
+    DataSource addDataSource(String beanName, Class<? extends DataSource> dataSourceBeanImpl, Closure dataSourceProperties) {
 
         if (applicationContext.containsBean(beanName)) {
             throw new BeanCreationException(beanName, "A Spring bean named '$beanName' already exists")

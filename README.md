@@ -16,15 +16,12 @@ Dependency-inject the `runtimeDataSourceService` service provided by the plugin 
 import javax.sql.DataSource
 import org.apache.tomcat.jdbc.pool.DataSource as TomcatDataSource
 
-def dataSourceProperties = {
+DataSource runtimeDataSource = runtimeDataSourceService.addDataSource('myDataSource', TomcatDataSource) {
     driverClassName = 'com.mysql.jdbc.Driver'
     url = 'jdbc:mysql://localhost/example'
     username = 'root'
     password = 'password'
 }
-
-DataSource runtimeDataSource = runtimeDataSourceService.addDataSource(
-        'myDataSource', dataSourceProperties, TomcatDataSource)
 ````
 
 If successful, the method returns the created datasource. 
