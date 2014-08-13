@@ -30,11 +30,10 @@ If successful, the method returns the created datasource.
 
 1. The name of the Spring bean that will be registered for this datasource. If a Spring bean with this name already
 exists, an exception will be thrown
-2. A closure that defines the properties of this datasource. At a minimum, the properties shown in the example above
+2. Defines the implementation class of the Spring bean. This class must implement the `javax.sql.DataSource` interface. 
+3. A closure that defines the properties of this datasource. At a minimum, the properties shown in the example above
 should be provided. This closure supports the same properties as the closure that is used to set datasource properties 
 at compile-time in <tt>DataSource.groovy</tt>
-3. The third argument defines the implementation class of the Spring bean. This class must implement the 
-`javax.sql.DataSource` interface. 
 
 ## Remove a DataSource
 
