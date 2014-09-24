@@ -10,7 +10,7 @@ import org.springframework.context.support.GenericApplicationContext
 import javax.sql.DataSource
 
 /**
- * A service that allows an application to add/remove JDBC datasources at runtime
+ * Allows an application to add/remove JDBC datasources at runtime.
  */
 class RuntimeDataSourceService implements ApplicationContextAware {
 
@@ -19,7 +19,7 @@ class RuntimeDataSourceService implements ApplicationContextAware {
     ApplicationContext applicationContext
 
     /**
-     * Add a datasource by registering a bean with the Spring application context
+     * Add a datasource by registering a bean with the Spring application context.
      *
      * @param beanName the name of the Spring bean that will be registered for this datasource
      * @param dataSourceBeanImpl Implementation class of the Spring bean. If omitted
