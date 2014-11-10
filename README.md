@@ -14,9 +14,9 @@ Dependency-inject the `runtimeDataSourceService` service provided by the plugin 
 
 ````groovy
 import javax.sql.DataSource
-import org.apache.tomcat.jdbc.pool.DataSource as TomcatDataSource
+import org.apache.tomcat.jdbc.pool.DataSource as JdbcDataSource
 
-DataSource runtimeDataSource = runtimeDataSourceService.addDataSource('myDataSource', TomcatDataSource) {
+DataSource runtimeDataSource = runtimeDataSourceService.addDataSource('myDataSource', JdbcDataSource) {
     driverClassName = 'com.mysql.jdbc.Driver'
     url = 'jdbc:mysql://localhost/example'
     username = 'root'
