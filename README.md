@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/domurtag/runtime-datasources.svg?branch=master)](https://travis-ci.org/domurtag/runtime-datasources)
+
+
 ## Introduction
 
 Grails plugin that enables an application to add or remove JDBC datasources at runtime, and provides convenience methods
