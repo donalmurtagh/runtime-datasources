@@ -6,8 +6,9 @@ import org.apache.tomcat.jdbc.pool.DataSource as TomcatDataSource
 import org.springframework.beans.factory.BeanCreationException
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
+import spock.lang.Specification
 
-class RuntimeDataSourceServiceTests extends GroovyTestCase implements ApplicationContextAware {
+class RuntimeDataSourceServiceTests extends Specification implements ApplicationContextAware {
 
     RuntimeDataSourceService runtimeDataSourceService
     ApplicationContext applicationContext
@@ -48,8 +49,7 @@ class RuntimeDataSourceServiceTests extends GroovyTestCase implements Applicatio
 
         String beanName = 'newDataSource'
         registerDefaultTomcatDataSource(beanName)
-        Sql sql = runtimeDataSourceService.getSql(beanName)
-
+\
         try {
             def createTableSql = 'create table test(id int primary key, name varchar(255))'
             sql.execute(createTableSql)

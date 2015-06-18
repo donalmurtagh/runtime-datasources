@@ -1,6 +1,7 @@
+grails.plugins.runtime-datasources
+
 class RuntimeDatasourcesGrailsPlugin {
-    def version = "0.2"
-    def grailsVersion = "1.3.7 > *"
+    def grailsVersion = "3.0.0 > *"
     def pluginExcludes = [
             "grails-app/conf/**",
             "grails-app/controllers/**",

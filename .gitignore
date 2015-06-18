@@ -1,8 +1,8 @@
-/target
-/web-app/WEB-INF
-/grails-runtime-datasources*.zip
-/grails-runtime-datasources*.zip.sha1
-/plugin.xml
-/.settings
-/*.iml
-*.log
+/bin/
+/build/
+/.gradle/
+.project
+.settings
+.classpath
+*.iml
+/.idea/
