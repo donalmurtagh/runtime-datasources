@@ -17,7 +17,7 @@ plugins {
 }
 
 version "0.2-grails3"
-group "alexanderfranke.plugins"
+group "domurtag.plugins"
 
 apply plugin: 'maven-publish'
 apply plugin: 'eclipse'
@@ -73,11 +73,11 @@ task wrapper(type: Wrapper) {
 bintray {
   pkg {
     userOrg = '' // If you want to publish to an organization
-    name = "alexanderfranke.plugins:runtime-datasources"
-    issueTrackerUrl = "https://github.com/alexanderfranke/runtime-datasources/issues"
-    vcsUrl = "https://github.com/alexanderfranke/runtime-datasources"
+    name = "domurtag.plugins:runtime-datasources"
+    issueTrackerUrl = "https://github.com/domurtag/runtime-datasources/issues"
+    vcsUrl = "https://github.com/domurtag/runtime-datasources"
     version {
-      attributes = ['grails-plugin': "alexanderfranke.plugins:runtime-datasources"]
+      attributes = ['grails-plugin': "domurtag.plugins:runtime-datasources"]
       name = project.version
     }
   }
