@@ -15,8 +15,4 @@ before_install:
 - source ~/.gvm/bin/gvm-init.sh
 - gvm install grails $GRAILS_VERSION || true
 
-branches:
-  only:
-    - master
-
 script: grails clean && grails test-app --non-interactive --stacktrace
