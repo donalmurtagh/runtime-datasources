@@ -5,6 +5,10 @@
 
 Grails plugin that enables an application to add or remove JDBC datasources at runtime, and provides convenience methods
 for executing SQL statements against these datasources
+
+## Versions
+
+Versions of this plugin that are compatible with Grails 2.X are on the master branch. Grails 3.X compatible versions are on the grails3 branch. The first Grails 3 compatible version is `0.2-grails3`.
  
 ## Limitations
  
