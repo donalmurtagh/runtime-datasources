@@ -1,69 +1,76 @@
 package grails.plugin.rtdatasources
 
+import grails.test.mixin.integration.Integration
 import groovy.sql.GroovyRowResult
 import groovy.sql.Sql
 import org.apache.tomcat.jdbc.pool.DataSource as TomcatDataSource
 import org.springframework.beans.factory.BeanCreationException
-import org.springframework.context.ApplicationContext
-import org.springframework.context.ApplicationContextAware
+import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Specification
 
-class RuntimeDataSourceServiceTests extends Specification implements ApplicationContextAware {
+@Integration
+class RuntimeDataSourceServiceTests extends Specification {
 
+    @Autowired
     RuntimeDataSourceService runtimeDataSourceService
-    ApplicationContext applicationContext
 
     private static final URL = "jdbc:h2:mem:runtimeDb"
     private static final DRIVER = "org.h2.Driver"
     private static final USERNAME = "sa"
     private static final PASSWORD = ""
 
-    void testDataSourceAdditionAndRemoval() {
+    def 'dataSource addition and removal'() {
 
         String beanName = 'newDataSource'
+
+        when:
         TomcatDataSource dataSource = registerDefaultTomcatDataSource(beanName)
 
+        then:
         // check a few properties
         def dataSourceProps = dataSource.poolProperties
-        assertEquals USERNAME, dataSourceProps.username
-        assertEquals PASSWORD, dataSourceProps.password
-        assertEquals URL, dataSourceProps.url
-        assertEquals DRIVER, dataSourceProps.driverClassName
+        USERNAME == dataSourceProps.username
+        PASSWORD == dataSourceProps.password
+        URL == dataSourceProps.url
+        DRIVER == dataSourceProps.driverClassName
 
         // now remove it twice, the second attempt should return false
-        assertTrue runtimeDataSourceService.removeDataSource(beanName)
-        assertFalse runtimeDataSourceService.removeDataSource(beanName)
+        runtimeDataSourceService.removeDataSource(beanName)
+        !runtimeDataSourceService.removeDataSource(beanName)
     }
 
-    void testDuplicateDataSourceRegistration() {
+    def 'duplicate dataSource registration causes exception'() {
 
         String beanName = 'anotherDataSource'
         registerDefaultTomcatDataSource(beanName)
 
-        shouldFail(BeanCreationException) {
-            registerDefaultTomcatDataSource(beanName)
-        }
+        when:
+        registerDefaultTomcatDataSource(beanName)
+
+        then:
+        thrown BeanCreationException
     }
 
-    void testSqlExecution() {
+    def 'SQL execution'() {
 
         String beanName = 'newDataSource'
         registerDefaultTomcatDataSource(beanName)
-\
-        try {
-            def createTableSql = 'create table test(id int primary key, name varchar(255))'
-            sql.execute(createTableSql)
+        Sql sql = runtimeDataSourceService.getSql(beanName)
 
-            GroovyRowResult queryResult = runtimeDataSourceService.doWithSql(beanName) { Sql queryExecutor ->
-                queryExecutor.firstRow('select count(*) from test')
-            }
+        when:
+        def createTableSql = 'create table test(id int primary key, name varchar(255))'
+        sql.execute(createTableSql)
 
-            assertEquals 0, queryResult[0]
-
-        } finally {
-            sql.close()
-            runtimeDataSourceService.removeDataSource(beanName)
+        GroovyRowResult queryResult = runtimeDataSourceService.doWithSql(beanName) { Sql queryExecutor ->
+            queryExecutor.firstRow('select count(*) from test')
         }
+
+        then:
+        0 == queryResult[0]
+
+        cleanup:
+        sql.close()
+        runtimeDataSourceService.removeDataSource(beanName)
     }
 
     private TomcatDataSource registerDefaultTomcatDataSource(String beanName) {
