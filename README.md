@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/domurtag/runtime-datasources.svg?branch=master)](https://travis-ci.org/domurtag/runtime-datasources)
+[![Build Status](https://travis-ci.org/donalmurtagh/runtime-datasources.svg?branch=master)](https://travis-ci.org/donalmurtagh/runtime-datasources)
 
 
 ## Introduction
